@@ -27,6 +27,8 @@ namespace Script.Core.Motion
         {
             // 旋转驱动
             RotationDriver();
+            // 运动驱动
+            MoveDriver();
         }
 
         #endregion
@@ -37,6 +39,25 @@ namespace Script.Core.Motion
         {
             // 应用旋转
             ApplyRotation();
+        }
+
+        private void MoveDriver()
+        {
+            _cc.Move(CaculateVerticalVelocity());
+            Debug.Log(_cc.velocity.magnitude);
+        }
+
+        private Vector3 CaculateVerticalVelocity()
+        {
+            if (_runTimeData.DesiredWorldMoveDir.sqrMagnitude > 0.001f)
+            {
+                Debug.Log(_runTimeData.DesiredWorldMoveDir.magnitude);
+                return _runTimeData.DesiredWorldMoveDir * 0.6f;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
 
         #region 辅助函数

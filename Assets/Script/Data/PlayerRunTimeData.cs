@@ -8,8 +8,10 @@ namespace Script.Data
     public class PlayerRunTimeData
     {
         #region 基础输入
-
-        public Vector2 MoveInput;
+        /// <summary>
+        /// 角色想要移动的世界方向
+        /// </summary>
+        public Vector3 DesiredWorldMoveDir;
 
         #endregion
 
@@ -22,6 +24,11 @@ namespace Script.Data
         /// 玩家竖直视角
         /// </summary>
         public float ViewPitch;
+        /// <summary>
+        /// 头部的旋转量 用于做中心点判断
+        /// </summary>
+        public Quaternion HeadRotation;
+
         #endregion
     }
 }

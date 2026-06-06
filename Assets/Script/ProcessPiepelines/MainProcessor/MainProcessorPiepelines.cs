@@ -11,7 +11,8 @@ namespace Script.ProcessPiepelines.MainProcessor
         private InputPiepelines.InputPiepelines _inputPiepelines;
         
         // 主处理管线持有的子处理管线
-        private IntentPipelines.ViewRotationProcessor viewRotationProcessor;
+        private ViewRotationProcessor viewRotationProcessor;
+        private MovementProcessor movementProcessor;
 
         public MainProcessorPiepelines(Player.PlayerController player)
         {
@@ -20,6 +21,7 @@ namespace Script.ProcessPiepelines.MainProcessor
             _inputPiepelines = _player.inputPiepelines;
             
             viewRotationProcessor = new ViewRotationProcessor(_runtimeData);
+            movementProcessor = new MovementProcessor(_runtimeData);
         }
 
         // 自定义驱动流转函数
@@ -27,6 +29,7 @@ namespace Script.ProcessPiepelines.MainProcessor
         {
             ref readonly InputData.ProcessedInputData inputSnapShot = ref _inputPiepelines.current.currentFrameData.processedInputData;
             viewRotationProcessor.Update(inputSnapShot);
+            movementProcessor.Update(inputSnapShot);
         }
     }
 }

@@ -4,12 +4,13 @@ using Script.Data;
 using Script.ProcessPiepelines.InputPiepelines;
 using Script.ProcessPiepelines.MainProcessor;
 using UnityEngine;
+using Mirror;
 
 namespace Script.Player
 {
     // 最优先执行 防止相机抽搐
     [DefaultExecutionOrder(-300)]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
         [Header("必备依赖组件")]
         [Header("InputReader - 输入读取器")]
@@ -30,6 +31,13 @@ namespace Script.Player
         
         // 骨骼组件
         public GameObject head;
+        
+        // 网络初始化相关
+        public override void OnStartLocalPlayer()
+        {
+            base.OnStartLocalPlayer();
+            head.SetActive(true);
+        }
         
         // 初始化
         private void Awake()
@@ -59,6 +67,7 @@ namespace Script.Player
         // 维护的一个唯一的Update
         private void Update()
         {
+            if (!isLocalPlayer) return;
             inputPiepelines.Update();
             mainProcessorPiepelines.Update();
         }
@@ -66,6 +75,7 @@ namespace Script.Player
         // 后处理阶段
         private void LateUpdate()
         {
+            if (!isLocalPlayer) return;
             motionDriver.UpdateMotion();
         }
     }

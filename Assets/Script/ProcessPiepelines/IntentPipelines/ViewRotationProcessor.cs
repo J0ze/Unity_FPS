@@ -29,6 +29,8 @@ namespace Script.ProcessPiepelines.IntentPipelines
                 _runTimeData.ViewYaw = Mathf.Repeat(_runTimeData.ViewYaw, 360f); // 水平角只能在360到0之间循环
                 _runTimeData.ViewPitch = Mathf.Clamp(_runTimeData.ViewPitch, -80f, 80f); // 俯仰角限制在-80到80之间
             }
+
+            _runTimeData.HeadRotation = Quaternion.Euler(_runTimeData.ViewPitch, _runTimeData.ViewYaw, 0f);
         }
     }
 }
